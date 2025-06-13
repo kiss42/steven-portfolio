@@ -4,60 +4,28 @@ const ColorContext = createContext();
 
 export const useColor = () => useContext(ColorContext);
 
-// Extended color schemes with onPrimary and onSecondary for contrast control
+// Night Magic color scheme only
 export const colorSchemes = {
-  default: {
-    background: 'black',      // page background
-    primary: '#9333ea',       // main accent
-    secondary: '#6b21a8',     // secondary accent
-    text: '#ffffff',          // text on background
-    onPrimary: '#ffffff',     // text on primary buttons, etc.
-    onSecondary: '#ffffff',   // text on secondary backgrounds
-  },
-  navy: {
-    background: '#1e3a8a',
-    primary: '#60a5fa',
-    secondary: '#3b82f6',
-    text: '#f8fafc',
-    onPrimary: '#1e3a8a',
-    onSecondary: '#f8fafc',
-  },
-  skyBlue: {
-    background: '#dbeafe',
-    primary: '#2563eb',
-    secondary: '#60a5fa',
-    text: '#1e293b',
+  nightMagic: {
+    background: '#0E0E0E',     // Deep black
+    primary: '#305A79',        // Navy blue
+    secondary: '#A8683F',      // Camel brown
+    text: '#ECECEC',           // Soft white
     onPrimary: '#ffffff',
-    onSecondary: '#1e293b',
+    onSecondary: '#000000',
   },
-  sage: {
-    background: '#d1fae5',
-    primary: '#059669',
-    secondary: '#34d399',
-    text: '#1e293b',
+    lightPeaceful: {
+    background: '#FFFFFF',
+    primary: '#A0AEC0',      // dusty blue
+    secondary: '#B6C5B1',    // sage green
+    text: '#2D3748',         // deep indigo/navy
     onPrimary: '#ffffff',
-    onSecondary: '#1e293b',
-  },
-  warmGray: {
-    background: '#f5f5f4',
-    primary: '#78716c',
-    secondary: '#a8a29e',
-    text: '#1e293b',
-    onPrimary: '#ffffff',
-    onSecondary: '#1e293b',
-  },
-  black: {
-    background: 'black',
-    primary: '#ffffff',
-    secondary: '#444444',
-    text: '#ffffff',
-    onPrimary: '#000000',
-    onSecondary: '#ffffff',
+    onSecondary: '#1a202c',  // contrast
   },
 };
 
 export const ColorProvider = ({ children }) => {
-  const [colorScheme, setColorScheme] = useState(colorSchemes.default);
+  const [colorScheme, setColorScheme] = useState(colorSchemes.nightMagic);
 
   useEffect(() => {
     const saved = localStorage.getItem('preferredColorScheme');

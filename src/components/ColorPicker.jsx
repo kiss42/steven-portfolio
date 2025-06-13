@@ -3,37 +3,39 @@ import { useColor, colorSchemes } from '../context/ColorContext';
 import { Palette } from 'lucide-react';
 
 const ColorPicker = () => {
-  const { changeColorScheme, colorScheme } = useColor();
-  const [open, setOpen] = useState(false);
+  const { colorScheme, changeColorScheme } = useColor();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const options = [
+    { name: 'nightMagic', color: colorSchemes.nightMagic.primary },
+    { name: 'lightPeaceful', color: colorSchemes.lightPeaceful.primary },
+  ];
 
   return (
-    <div className="fixed right-4 bottom-4 z-50">
-      <div
-        className={`transition-all duration-300 ${
-          open ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
-        } bg-gray-900 text-white rounded-xl p-4 w-48 shadow-lg mb-3`}
-      >
-        <p className="text-sm font-bold mb-2">Choose Color Scheme</p>
-        <div className="grid grid-cols-3 gap-2">
-          {Object.entries(colorSchemes).map(([key, scheme]) => (
-            <button
-              key={key}
-              onClick={() => changeColorScheme(key)}
-              className={`w-10 h-10 rounded-full border-2 ${
-                scheme.primary === colorScheme.primary ? 'ring-2 ring-white' : 'border-transparent'
-              }`}
-              style={{ backgroundColor: scheme.primary }}
-              title={key}
-            />
-          ))}
+    <div className="fixed bottom-10 right-6 z-50">
+      {isOpen && (
+        <div className="bg-[#0E0E0E] text-white p-4 rounded-xl shadow-lg mb-3 w-52">
+          <h4 className="font-semibold text-lg mb-2">Choose Color Scheme</h4>
+          <div className="flex gap-3 justify-center flex-wrap">
+            {options.map(({ name, color }) => (
+              <button
+                key={name}
+                onClick={() => changeColorScheme(name)}
+                className="w-8 h-8 rounded-full border-2 transition-all duration-300"
+                style={{
+                  backgroundColor: color,
+                  borderColor: colorScheme.background === colorSchemes[name].background ? '#fff' : 'transparent',
+                }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-
+      )}
       <button
-        onClick={() => setOpen(!open)}
-        className="bg-purple-600 hover:bg-purple-700 p-3 rounded-full shadow-md transition"
+        onClick={() => setIsOpen(!isOpen)}
+        className="p-3 rounded-xl shadow-lg text-white bg-[#305A79] hover:scale-105 transition-all"
       >
-        <Palette className="text-white" />
+        <Palette />
       </button>
     </div>
   );
