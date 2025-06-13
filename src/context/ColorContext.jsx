@@ -4,7 +4,7 @@ const ColorContext = createContext();
 
 export const useColor = () => useContext(ColorContext);
 
-// Night Magic color scheme only
+// Color schemes
 export const colorSchemes = {
   nightMagic: {
     background: '#0E0E0E',     // Deep black
@@ -14,36 +14,47 @@ export const colorSchemes = {
     onPrimary: '#ffffff',
     onSecondary: '#000000',
   },
-    lightPeaceful: {
+  lightPeaceful: {
     background: '#FFFFFF',
-    primary: '#A0AEC0',      // dusty blue
-    secondary: '#B6C5B1',    // sage green
-    text: '#2D3748',         // deep indigo/navy
+    primary: '#A0AEC0',        // Dusty blue
+    secondary: '#B6C5B1',      // Sage green
+    text: '#2D3748',           // Deep indigo/navy
     onPrimary: '#ffffff',
-    onSecondary: '#1a202c',  // contrast
+    onSecondary: '#1a202c',
   },
 };
 
 export const ColorProvider = ({ children }) => {
   const [colorScheme, setColorScheme] = useState(colorSchemes.nightMagic);
+  const [schemeName, setSchemeName] = useState('nightMagic');
 
   useEffect(() => {
     const saved = localStorage.getItem('preferredColorScheme');
     if (saved && colorSchemes[saved]) {
       setColorScheme(colorSchemes[saved]);
+      setSchemeName(saved);
     }
   }, []);
 
-  const changeColorScheme = (schemeName) => {
-    const scheme = colorSchemes[schemeName];
+  useEffect(() => {
+    // Dynamically update browser theme color
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) {
+      themeMeta.setAttribute('content', colorScheme.primary);
+    }
+  }, [colorScheme]);
+
+  const changeColorScheme = (name) => {
+    const scheme = colorSchemes[name];
     if (scheme) {
       setColorScheme(scheme);
-      localStorage.setItem('preferredColorScheme', schemeName);
+      setSchemeName(name);
+      localStorage.setItem('preferredColorScheme', name);
     }
   };
 
   return (
-    <ColorContext.Provider value={{ colorScheme, changeColorScheme }}>
+    <ColorContext.Provider value={{ colorScheme, changeColorScheme, schemeName }}>
       {children}
     </ColorContext.Provider>
   );
