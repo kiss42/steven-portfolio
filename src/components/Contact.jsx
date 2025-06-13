@@ -22,14 +22,12 @@ const Contact = () => {
     const templateID = 'template_sr0xenc';
     const publicKey = 'HuORjpvKqMxU4SAz0';
 
-    const templateParams = {
+    emailjs.send(serviceID, templateID, {
       from_name: formData.name,
       from_email: formData.email,
       message: formData.message,
       to_name: 'Steven Pierre',
-    };
-
-    emailjs.send(serviceID, templateID, templateParams, publicKey)
+    }, publicKey)
       .then(() => {
         setLoading(false);
         setFeedbackMessage('Message sent successfully!');
@@ -42,69 +40,74 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-10 px-4 sm:px-6 md:px-8">
-      <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6" style={{ color: colorScheme.primary }}>
+    <section className="py-12 px-4 sm:px-6 md:px-12" style={{ backgroundColor: colorScheme.background }}>
+      <div className="max-w-xl mx-auto">
+        <h2 className="text-3xl font-bold text-center mb-8" style={{ color: colorScheme.primary }}>
           Contact Me
         </h2>
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <div>
-            <label className="block mb-1 text-sm sm:text-base" style={{ color: colorScheme.text }}>Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full p-3 rounded text-sm sm:text-base"
-              style={{ backgroundColor: colorScheme.secondary, color: colorScheme.text }}
-              required
-            />
-          </div>
-          <div>
-            <label className="block mb-1 text-sm sm:text-base" style={{ color: colorScheme.text }}>Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full p-3 rounded text-sm sm:text-base"
-              style={{ backgroundColor: colorScheme.secondary, color: colorScheme.text }}
-              required
-            />
-          </div>
-          <div>
-            <label className="block mb-1 text-sm sm:text-base" style={{ color: colorScheme.text }}>Message</label>
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows="5"
-              className="w-full p-3 rounded text-sm sm:text-base"
-              style={{ backgroundColor: colorScheme.secondary, color: colorScheme.text }}
-              required
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {['name', 'email', 'message'].map((field) => (
+            <div key={field}>
+              <label
+                htmlFor={field}
+                className="block text-sm font-medium mb-1"
+                style={{ color: colorScheme.text }}
+              >
+                {field.charAt(0).toUpperCase() + field.slice(1)}
+              </label>
+              {field !== 'message' ? (
+                <input
+                  id={field}
+                  type={field === 'email' ? 'email' : 'text'}
+                  name={field}
+                  value={formData[field]}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-3 rounded-md border outline-none text-sm"
+                  style={{
+                    backgroundColor: colorScheme.secondary,
+                    color: colorScheme.onSecondary,
+                    border: '1px solid #ccc',
+                  }}
+                />
+              ) : (
+                <textarea
+                  id={field}
+                  name={field}
+                  rows={5}
+                  value={formData[field]}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-3 rounded-md border outline-none text-sm"
+                  style={{
+                    backgroundColor: colorScheme.secondary,
+                    color: colorScheme.onSecondary,
+                    border: '1px solid #ccc',
+                  }}
+                />
+              )}
+            </div>
+          ))}
+
           <button
             type="submit"
-            className="w-full sm:w-auto block text-center py-2 px-6 font-semibold text-sm sm:text-base transition-all"
+            className="w-full py-3 rounded-md font-semibold transition-all duration-300"
             style={{
-              backgroundColor: 'transparent',
-              color: colorScheme.primary,
-              border: '1px solid ' + colorScheme.primary,
-              borderRadius: '0.5rem',
-              cursor: 'pointer'
+              backgroundColor: colorScheme.primary,
+              color: colorScheme.onPrimary,
+              border: 'none',
             }}
           >
             {loading ? 'Sending...' : 'Send Message'}
           </button>
-        </form>
 
-        {feedbackMessage && (
-          <p className="mt-4 text-center text-sm sm:text-base" style={{ color: colorScheme.primary }}>
-            {feedbackMessage}
-          </p>
-        )}
+          {feedbackMessage && (
+            <p className="text-center text-sm mt-4" style={{ color: colorScheme.primary }}>
+              {feedbackMessage}
+            </p>
+          )}
+        </form>
       </div>
     </section>
   );
