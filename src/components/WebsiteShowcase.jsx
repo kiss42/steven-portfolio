@@ -20,38 +20,33 @@ const WebsiteShowcase = () => {
   const site = websites[0];
 
   return (
-    <section className="py-12 px-6" style={{ backgroundColor: colorScheme.background }}>
-      <h2 className="text-3xl font-bold text-center mb-8" style={{ color: colorScheme.primary }}>
+    <section className="py-12 px-4 sm:px-6" style={{ backgroundColor: colorScheme.background }}>
+      <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8" style={{ color: colorScheme.primary }}>
         Featured Website
       </h2>
 
       <div
-        className="flex rounded-xl shadow-lg overflow-hidden transition-colors duration-300"
-        style={{
-          width: '558px',
-          height: '289px',
-          backgroundColor: colorScheme.secondary,
-          color: colorScheme.text,
-        }}
+        className="flex flex-col sm:flex-row rounded-xl shadow-lg overflow-hidden transition-colors duration-300 max-w-xl sm:max-w-2xl mx-auto"
+        style={{ backgroundColor: colorScheme.secondary, color: colorScheme.text }}
       >
-        {/* ✅ Fixed Image Container */}
-        <div className="w-[45%] h-full relative overflow-hidden rounded-l-xl">
+        {/* Image */}
+        <div className="w-full sm:w-[45%] h-52 sm:h-auto relative overflow-hidden">
           <img
             src={site.image}
             alt={site.title}
-            className="w-full h-full object-cover block"
+            className="w-full h-full object-cover"
           />
         </div>
 
-        {/* Content Side */}
-        <div className="w-[55%] p-5 flex flex-col justify-between">
+        {/* Content */}
+        <div className="w-full sm:w-[55%] p-5 flex flex-col justify-between">
           <div>
-            <h3 className="text-xl font-bold mb-1">{site.title}</h3>
-            <p className="text-sm mb-2">{site.description}</p>
+            <h3 className="text-lg sm:text-xl font-bold mb-1">{site.title}</h3>
+            <p className="text-sm sm:text-base mb-2">{site.description}</p>
             <p className="text-xs italic text-gray-300">{site.tagline}</p>
           </div>
 
-          <div className="mt-4 text-xs">
+          <div className="mt-3 sm:mt-4 text-xs sm:text-sm">
             <p className="mb-1">
               <strong>{site.location}</strong>
             </p>
@@ -61,7 +56,7 @@ const WebsiteShowcase = () => {
             </p>
           </div>
 
-          <div className="text-right mt-4">
+          <div className="text-left sm:text-right mt-4">
             <a
               href={site.url}
               target="_blank"

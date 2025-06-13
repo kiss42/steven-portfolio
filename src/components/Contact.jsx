@@ -42,56 +42,56 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-12">
-      <div className="max-w-3xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center mb-6" style={{ color: colorScheme.primary }}>Contact Me</h2>
+    <section className="py-10 px-4 sm:px-6 md:px-8">
+      <div className="max-w-3xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6" style={{ color: colorScheme.primary }}>
+          Contact Me
+        </h2>
 
-        <form className="mt-6" onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block mb-2" style={{ color: colorScheme.text }}>Name</label>
-            <input 
-              type="text" 
-              name="name" 
-              value={formData.name} 
-              onChange={handleChange} 
-              className="w-full p-3 rounded" 
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label className="block mb-1 text-sm sm:text-base" style={{ color: colorScheme.text }}>Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full p-3 rounded text-sm sm:text-base"
               style={{ backgroundColor: colorScheme.secondary, color: colorScheme.text }}
-              required 
+              required
             />
           </div>
-          <div className="mb-4">
-            <label className="block mb-2" style={{ color: colorScheme.text }}>Email</label>
-            <input 
-              type="email" 
-              name="email" 
-              value={formData.email} 
-              onChange={handleChange} 
-              className="w-full p-3 rounded" 
+          <div>
+            <label className="block mb-1 text-sm sm:text-base" style={{ color: colorScheme.text }}>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full p-3 rounded text-sm sm:text-base"
               style={{ backgroundColor: colorScheme.secondary, color: colorScheme.text }}
-              required 
+              required
             />
           </div>
-          <div className="mb-4">
-            <label className="block mb-2" style={{ color: colorScheme.text }}>Message</label>
-            <textarea 
-              name="message" 
-              value={formData.message} 
-              onChange={handleChange} 
-              className="w-full p-3 rounded" 
+          <div>
+            <label className="block mb-1 text-sm sm:text-base" style={{ color: colorScheme.text }}>Message</label>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              rows="5"
+              className="w-full p-3 rounded text-sm sm:text-base"
               style={{ backgroundColor: colorScheme.secondary, color: colorScheme.text }}
-              required 
+              required
             />
           </div>
-          <button 
-            type="submit" 
-            className="py-2 px-6 font-semibold transition-all"
+          <button
+            type="submit"
+            className="w-full sm:w-auto block text-center py-2 px-6 font-semibold text-sm sm:text-base transition-all"
             style={{
               backgroundColor: 'transparent',
               color: colorScheme.primary,
-              border: 'none',
-              textDecoration: 'none',
-              outline: 'none',
-              boxShadow: 'none',
+              border: '1px solid ' + colorScheme.primary,
               borderRadius: '0.5rem',
               cursor: 'pointer'
             }}
@@ -99,7 +99,12 @@ const Contact = () => {
             {loading ? 'Sending...' : 'Send Message'}
           </button>
         </form>
-        {feedbackMessage && <p className="mt-4 text-center" style={{ color: colorScheme.primary }}>{feedbackMessage}</p>}
+
+        {feedbackMessage && (
+          <p className="mt-4 text-center text-sm sm:text-base" style={{ color: colorScheme.primary }}>
+            {feedbackMessage}
+          </p>
+        )}
       </div>
     </section>
   );
